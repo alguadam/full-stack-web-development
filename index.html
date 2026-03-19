@@ -11,85 +11,186 @@
 </head>
 
 <body>
-  <div class="container">
+  <div class="container-lg">
+
+    <!-- ── Header ── -->
     <header
       class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
       <div class="col-md-3 mb-2 mb-md-0">
-        <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-app"
-            viewBox="0 0 16 16">
+        <a href="/" class="d-inline-flex align-items-center link-body-emphasis text-decoration-none">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
             <path
-              d="M11 2a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3zM5 1a4 4 0 0 0-4 4v6a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4z" />
+              d="M8 4a4 4 0 0 0-3.866 2.998h7.732A4 4 0 0 0 8 4M4.134 9.002a4.002 4.002 0 0 0 7.732 0zM7.5 9.5a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0" />
           </svg>
+          <span class="ms-2 fs-5 fw-semibold">Pokémon Team Builder</span>
         </a>
       </div>
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="#" class="nav-link px-2 link-secondary">My Pokémon Team</a></li>
+        <li><a href="#" class="nav-link px-2 link-secondary">My Team</a></li>
       </ul>
       <div class="col-md-3 text-end">
-        <button type="button" class="btn btn-outline-primary me-2">Login</button>
-        <button type="button" class="btn btn-primary">Sign-up</button>
+        <button type="button" class="btn btn-outline-primary btn-sm me-2">Login</button>
+        <button type="button" class="btn btn-primary btn-sm">Sign up</button>
       </div>
     </header>
-    <div class="row text-center">
-      <div class="col-sm-8">
-        <h4>Pokémon Team</h4>
-        <div class="row">
-          <div class="container-pokemon col-lg-5">
-              <div class="row">
-                <div class="col-sm m-1">
-                  <input type="text" class="form-control" placeholder="Search Pokémon">
+
+    <!-- ── Main layout ── -->
+    <div class="row g-4">
+
+      <!-- ── Team Editor (left) ── -->
+      <div class="col-lg-8">
+        <h5 class="mb-3">My Pokémon Team</h5>
+
+        <!-- 6 slot cards -->
+        <div class="row g-2" id="team-slots"></div>
+
+        <!-- Setup panel (shown on slot click) -->
+        <div id="pokemon-setup" class="card mt-3" style="display:none">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span class="fw-semibold" id="setup-title">Slot 1 — Setup</span>
+            <button type="button" class="btn-close" aria-label="Close" onclick="closeSetup()"></button>
+          </div>
+          <div class="card-body">
+            <div class="row g-3">
+
+              <!-- Sprite + search -->
+              <div class="col-sm-3 text-center">
+                <img id="setup-sprite"
+                  src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png"
+                  alt="Select a Pokémon" class="setup-sprite-img mb-2">
+                <input type="text" id="setup-search" class="form-control form-control-sm"
+                  placeholder="Search Pokémon…">
+              </div>
+
+              <!-- Item / Ability / Nature -->
+              <div class="col-sm-3">
+                <div class="mb-2">
+                  <label class="form-label small mb-1">Item</label>
+                  <input type="text" class="form-control form-control-sm" placeholder="Held item">
+                </div>
+                <div class="mb-2">
+                  <label class="form-label small mb-1">Ability</label>
+                  <input type="text" class="form-control form-control-sm" placeholder="Ability">
+                </div>
+                <div>
+                  <label class="form-label small mb-1">Nature</label>
+                  <select class="form-select form-select-sm">
+                    <option value="">— Select —</option>
+                    <option>Hardy</option><option>Lonely</option><option>Brave</option>
+                    <option>Adamant</option><option>Naughty</option><option>Bold</option>
+                    <option>Docile</option><option>Relaxed</option><option>Impish</option>
+                    <option>Lax</option><option>Timid</option><option>Hasty</option>
+                    <option>Serious</option><option>Jolly</option><option>Naive</option>
+                    <option>Modest</option><option>Mild</option><option>Quiet</option>
+                    <option>Bashful</option><option>Rash</option><option>Calm</option>
+                    <option>Gentle</option><option>Sassy</option><option>Careful</option>
+                    <option>Quirky</option>
+                  </select>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-sm-6">
-                  <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/89.png"
-                    class="card-img" alt="Pikachu">
-                </div>
-                <div class="col-sm-6">
-                  <div class="row">
-                    <div class="col-sm m-1">
-                      <input type="text" class="form-control" placeholder="Move 1">
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-sm m-1">
-                      <input type="text" class="form-control" placeholder="Move 2">
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-sm m-1">
-                      <input type="text" class="form-control" placeholder="Move 3">
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-sm m-1">
-                      <input type="text" class="form-control" placeholder="Move 4">
-                    </div>
-                  </div>
-                </div>
+
+              <!-- Moves -->
+              <div class="col-sm-6">
+                <label class="form-label small mb-1">Moves</label>
+                <input type="text" class="form-control form-control-sm mb-1" placeholder="Move 1">
+                <input type="text" class="form-control form-control-sm mb-1" placeholder="Move 2">
+                <input type="text" class="form-control form-control-sm mb-1" placeholder="Move 3">
+                <input type="text" class="form-control form-control-sm" placeholder="Move 4">
+              </div>
+
             </div>
-          </div>
-          <div class="container-pokemon col-lg-5">
-          </div>
-          <div class="container-pokemon col-lg-5">
-          </div>
-          <div class="container-pokemon col-lg-5">
-          </div>
-          <div class="container-pokemon col-lg-5">
-          </div>
-          <div class="container-pokemon col-lg-5">
           </div>
         </div>
       </div>
-      <div class="col-sm-4">
-        <h4>Team Analysis</h4>
+
+      <!-- ── Team Analysis (right) ── -->
+      <div class="col-lg-4">
+        <h5 class="mb-3">Team Analysis</h5>
+
+        <!-- Weaknesses -->
+        <div class="card mb-3">
+          <div class="card-body">
+            <h6 class="card-title text-danger mb-2">Weaknesses</h6>
+            <div id="type-weaknesses" class="d-flex flex-wrap gap-1">
+              <span class="text-muted small">Add Pokémon to see weaknesses.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Resistances -->
+        <div class="card">
+          <div class="card-body">
+            <h6 class="card-title text-success mb-2">Resistances</h6>
+            <div id="type-resistances" class="d-flex flex-wrap gap-1">
+              <span class="text-muted small">Add Pokémon to see resistances.</span>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
+
+    </div><!-- /main row -->
+  </div><!-- /container -->
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
     crossorigin="anonymous"></script>
+
+  <script>
+    const SLOT_COUNT = 6;
+    let activeSlot = null;
+
+    // Pokéball SVG used as placeholder in empty slots
+    const pokeballSvg = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+           class="text-secondary" style="opacity:.25" viewBox="0 0 16 16">
+        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+        <path d="M8 4a4 4 0 0 0-3.866 2.998h7.732A4 4 0 0 0 8 4M4.134 9.002a4.002 4.002 0 0 0 7.732 0zM7.5 9.5a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0"/>
+      </svg>`;
+
+    function renderSlots() {
+      const container = document.getElementById('team-slots');
+      container.innerHTML = '';
+      for (let i = 0; i < SLOT_COUNT; i++) {
+        const isActive = activeSlot === i;
+        const col = document.createElement('div');
+        col.className = 'col-4 col-md-2';
+        col.innerHTML = `
+          <div class="pokemon-slot card text-center h-100${isActive ? ' active' : ''}"
+               role="button" tabindex="0" aria-label="Slot ${i + 1}${isActive ? ' (open)' : ''}"
+               onclick="selectSlot(${i})"
+               onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectSlot(${i})}">
+            <div class="card-body p-2 d-flex flex-column align-items-center justify-content-center gap-1">
+              ${pokeballSvg}
+              <small class="text-muted">Slot ${i + 1}</small>
+            </div>
+          </div>`;
+        container.appendChild(col);
+      }
+    }
+
+    function selectSlot(index) {
+      if (activeSlot === index) {
+        closeSetup();
+        return;
+      }
+      activeSlot = index;
+      renderSlots();
+      const setup = document.getElementById('pokemon-setup');
+      document.getElementById('setup-title').textContent = `Slot ${index + 1} — Setup`;
+      setup.style.display = 'block';
+      setup.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function closeSetup() {
+      activeSlot = null;
+      renderSlots();
+      document.getElementById('pokemon-setup').style.display = 'none';
+    }
+
+    renderSlots();
+  </script>
+
 </body>
 
 </html>
